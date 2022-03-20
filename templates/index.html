@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- set up bootstrap -->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>MARS DATA</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<!-- set up header and tempelate for the website to display result of scraping -->
+<body>
+  <div class="container-fluid">
+    <div class="jumbotron text-center">
+      <h1>Mission to Mars</h1>
+      <p></p>
+<!-- create button that will scrape when clicked -->
+      <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data!</a></p>
+    </div>
+    <div>
+
+<!-- create a static sidebar displaying the table on Mars Fact-->
+      <div class="container-fluid">
+        <div class="row content">
+          <div class="col-sm-3 sidenav">
+            <h4>MARS TABLE</h4>
+            <ul class="nav nav-pills nav-stacked">
+              <li class="active"><a href="#section1">Home</a></li>
+              <li>{{mars_db.mars_table | safe}}</li>
+            </ul><br>
+          </div>
+<!-- displays Latest News Title & Paragraph on Mars -->
+          <h4><small>RECENT MARS NEWS</small></h4>
+          <hr>
+          <h2>Mars Latest News:</h2>
+          <h5>{{mars_db.latest_news_t}}</h5>
+          <h5><span class="label label-danger">Mars</span> <span class="label label-primary">News</span></h5><br>
+          <p>{{mars_db.latest_news_p}}</p>
+          <br><br>
+          
+          <h4><small>RECENT MARS NEWS</small></h4>
+          <hr>
+          <h2>Featured Image on Mars</h2>
+          <h5><span class="label label-danger">Mars</span> <span class="label label-primary">Image</span></h5><br>
+          <p><img src="{{ mars_db.featured_image }}" alt="Mars"></p>
+          <hr>
+
+  <!-- Displays PICTURES OF VARIOUS MARS HEMISPHERES-->
+    
+    <h3>Mars Hemispheres </h3>
+     
+     </h3>
+     <div class="container">
+      <div class="row">
+      {% for h in  mars_db.mars_img_dict%}
+        <div class="col-md-3">
+            <a href="{{h.img_url}}"> <img src="{{ h.img_url }}" class="img-responsive img-thumbnail" width="304" height="236"/>
+            <p>{{h.title}}</p>
+            </a>
+
+         </div>
+      {% endfor %}
+      </div>
+  </div>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+
+</html>

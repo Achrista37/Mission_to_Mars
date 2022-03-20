@@ -5,7 +5,7 @@
 #################################################
 from flask import Flask, render_template, redirect
 from flask_pymongo import PyMongo
-import scrape_mars
+import scrape_mars2
 
 # Create an instance of Flask
 app = Flask(__name__)
@@ -27,14 +27,13 @@ def home():
 
 # Route that will trigger the scrape function
 @app.route("/scrape")
-def scrape():
-
+def scrape_all():
     # Run the scrape function
     mars_db = mongo.db.mars_db
-    mars_data = scrape_mars.scrape()
-
+    mars_data = scrape_mars2.scrape()
+    print(mars_data)
     # Update the Mongo database using update and upsert=True
-    mars_db.update_one({}, {"$set": mars_data}, upsert=True)
+    mars_db.update_many({}, {"$set": mars_data}, upsert=True)
 
     # Redirect back to home page
     return redirect("/")
